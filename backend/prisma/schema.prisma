@@ -1,0 +1,97 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  first_name      String
+  last_name  String
+  address   String
+  city      String
+  group_id  Int 
+  avatar    String
+  Group     Group    @relation(fields: [group_id], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Sent      Message[] @relation("Sender")
+  Received  Message[] @relation("Receiver")
+  isTeacher Boolean
+  Subjects   Subject[]
+  Grades    Grade[]
+}
+
+model Group {
+  id        Int      @id @default(autoincrement())
+  name      String
+  Users     User[]
+  Schedule  Schedule[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Message {
+  id        Int      @id @default(autoincrement())
+  text      String
+  sender_id Int
+  Sender    User     @relation(name: "Sender", fields: [sender_id], references: [id])
+  receiver_id Int
+  Receiver  User     @relation(name: "Receiver", fields: [receiver_id], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Subject {
+  id        Int      @id @default(autoincrement())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  teacher_id Int
+  Teacher   User     @relation(fields: [teacher_id], references: [id])
+  Schedule  Schedule[]
+  Grades    Grade[]
+
+}
+
+model Schedule {
+  id        Int      @id @default(autoincrement())
+  day       Int
+  time      Int
+  subject_id Int
+  Subject   Subject  @relation(fields: [subject_id], references: [id])
+  group_id  Int
+  Group     Group    @relation(fields: [group_id], references: [id])
+  room_id   Int
+  Room      Room     @relation(fields: [room_id], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Grade {
+  id        Int      @id @default(autoincrement())
+  grade     Int
+  student_id Int
+  Student   User     @relation(fields: [student_id], references: [id])
+  subject_id Int
+  Subject   Subject  @relation(fields: [subject_id], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Room {
+  id        Int      @id @default(autoincrement())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Schedule  Schedule[]
+}
+
+
+
+
+
+

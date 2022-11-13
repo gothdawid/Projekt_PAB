@@ -15,7 +15,7 @@ model User {
   city      String
   group_id  Int 
   avatar    String
-  Group     Group    @relation(fields: [group_id], references: [id])
+  Group     Group    @relation(name: "UsersInGroup", fields: [group_id], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   Sent      Message[] @relation("Sender")
@@ -28,8 +28,8 @@ model User {
 model Group {
   id        Int      @id @default(autoincrement())
   name      String
-  Users     User[]
-  Schedule  Schedule[]
+  Students     User[] @relation(name: "UsersInGroup")
+  Schedule  Schedule[] @relation(name: "GroupSchedule")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -64,7 +64,7 @@ model Schedule {
   subject_id Int
   Subject   Subject  @relation(fields: [subject_id], references: [id])
   group_id  Int
-  Group     Group    @relation(fields: [group_id], references: [id])
+  Group     Group    @relation(name: "GroupSchedule", fields: [group_id], references: [id])
   room_id   Int
   Room      Room     @relation(fields: [room_id], references: [id])
   createdAt DateTime @default(now())

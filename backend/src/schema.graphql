@@ -19,10 +19,10 @@ type Query {
     allRooms: [Room!]!
     allTeachers: [User!]!
     allStudents: [User!]!
-    SchedulesByGroup(id: ID!): [Schedule!]!
-    SchedulesByTeacher(id: ID!): [Schedule!]!
-    SchedulesByRoom(id: ID!): [Schedule!]!
-    SchedulesBySubject(id: ID!): [Schedule!]!
+    SchedulesByGroup(group_id: ID!): [Schedule!]!
+    SchedulesByTeacher(teacher_id: ID!): [Schedule!]!
+    SchedulesByRoom(room_id: ID!): [Schedule!]!
+    SchedulesBySubject(subject_id: ID!): [Schedule!]!
 }
 
 type User {

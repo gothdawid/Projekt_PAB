@@ -19,10 +19,10 @@ const resolvers = {
     allRooms: async (parent, args, { prisma }) => {return prisma.room.findMany() },
     allTeachers: async (parent, args, { prisma }) => {return prisma.user.findMany({where: {isTeacher: true}}) },
     allStudents: async (parent, args, { prisma }) => {return prisma.user.findMany({where: {isTeacher: false}}) },
-    SchedulesByGroup: async (parent, args, { prisma }) => {return prisma.schedule.findMany({where: {group: {id: args.groupId}}}) },
-    SchedulesByTeacher: async (parent, args, { prisma }) => {return prisma.schedule.findMany({where: {teacher: {id: args.teacherId}}}) },
-    SchedulesBySubject: async (parent, args, { prisma }) => {return prisma.schedule.findMany({where: {subject: {id: args.subjectId}}}) },
-    SchedulesByRoom: async (parent, args, { prisma }) => {return prisma.schedule.findMany({where: {room: {id: args.roomId}}}) },
+    SchedulesByGroup: async (parent, args, { prisma }) => {return prisma.schedule.findMany({where: {group_id: parseInt(args.group_id)}}) },
+    SchedulesByTeacher: async (parent, args, { prisma }) => {return prisma.schedule.findMany({where: {teacher_id: parseInt(args.teacher_id)}}) },
+    SchedulesBySubject: async (parent, args, { prisma }) => {return prisma.schedule.findMany({where: {subject_id: parseInt(args.teacher_id)}}) },
+    SchedulesByRoom: async (parent, args, { prisma }) => {return prisma.schedule.findMany({where: {room_id: parseInt(args.teacher_id)}}) },
   },
 
     Mutation: {
@@ -71,16 +71,16 @@ const resolvers = {
             return prisma.user.findUnique({ where: { id: parent.id } }).Group()
         },
         Sent: async (parent, args, { prisma }) => {
-            return prisma.user.findMany({ where: { id: parent.id } }).Sent()
+            return prisma.user.findUnique({ where: { id: parent.id } }).Sent()
         },
         Received: async (parent, args, { prisma }) => {
-            return prisma.user.findMany({ where: { id: parent.id } }).Received()
+            return prisma.user.findUnique({ where: { id: parent.id } }).Received()
         },
         Grades: async (parent, args, { prisma }) => {
-            return prisma.user.findMany({ where: { id: parent.id } }).Grades()
+            return prisma.user.findUnique({ where: { id: parent.id } }).Grades()
         },
         Subjects: async (parent, args, { prisma }) => {
-            return prisma.user.findMany({ where: { id: parent.id } }).Subjects()
+            return prisma.user.findUnique({ where: { id: parent.id } }).Subjects()
         },
     },
     Message: {
@@ -93,12 +93,46 @@ const resolvers = {
     },
     Group: {
         Schedule: async (parent, args, { prisma }) => {
-            return prisma.group.findMany({ where: { id: parent.id } }).Schedule()
+            return prisma.group.findUnique({ where: { id: parent.id } }).Schedule()
         },
         Students: async (parent, args, { prisma }) => {
-            return prisma.group.findMany({ where: { id: parent.id } }).Students()
-        }
+            return prisma.group.findUnique({ where: { id: parent.id } }).Students()
+        },
     },
+    Schedule: {
+        Group: async (parent, args, { prisma }) => {
+            return prisma.schedule.findUnique({ where: { id: parent.id } }).Group()
+        },
+        Subject: async (parent, args, { prisma }) => {
+            return prisma.schedule.findUnique({ where: { id: parent.id } }).Subject()
+        },
+        Room: async (parent, args, { prisma }) => {
+            return prisma.schedule.findUnique({ where: { id: parent.id } }).Room()
+        },
+    },
+    Subject: {
+        Schedule: async (parent, args, { prisma }) => {
+            return prisma.subject.findUnique({ where: { id: parent.id } }).Schedule()
+        },
+        Teacher: async (parent, args, { prisma }) => {
+            return prisma.subject.findUnique({ where: { id: parent.id } }).Teacher()
+        },
+
+    },
+    Grade: {
+        Student: async (parent, args, { prisma }) => {
+            return prisma.grade.findUnique({ where: { id: parent.id } }).Student()
+        },
+        Subject: async (parent, args, { prisma }) => {
+            return prisma.grade.findUnique({ where: { id: parent.id } }).Subject()
+        },
+    },
+    Room: {
+        Schedule: async (parent, args, { prisma }) => {
+            return prisma.room.findUnique({ where: { id: parent.id } }).Schedule()
+        },
+    },
+    
 };
 module.exports = {
     resolvers

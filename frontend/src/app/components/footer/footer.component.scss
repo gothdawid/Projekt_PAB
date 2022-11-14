@@ -1,0 +1,22 @@
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    line-height: 40px;
+}
+
+.footer-position {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+.footer-details {
+    display: flex;
+    justify-content: center;
+}
+
+.border-details {
+    border-radius: 10px;
+}

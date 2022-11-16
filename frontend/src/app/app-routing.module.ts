@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { GroupListComponent } from './components/groups/group-list/group-list.component';
+import { HomeComponent } from './components/home/home.component';
 
 const routes: Routes = [
-  { path: 'groups', component: GroupListComponent }
+  { path: "", component: HomeComponent }
 ];
 
 @NgModule({

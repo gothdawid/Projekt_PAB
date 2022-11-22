@@ -1,0 +1,36 @@
+.position {
+    display: flex;
+    margin-top: 12rem;
+    margin-bottom: 12rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon {
+    font-size: 3em;
+}
+
+.btn-element {
+    height: 7rem;
+    width: 10rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.description {
+    display: flex;
+    justify-content: center;
+    font-size: 18px;
+    font-style: italic;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+@media (max-width: 800px) {
+    .position {
+      flex-direction: column;
+    }
+  }
+
+.page {
+    flex: 1;
+}

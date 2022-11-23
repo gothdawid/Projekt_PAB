@@ -1,0 +1,22 @@
+.form-signin {
+    display: flex;
+    flex-direction: column;
+    max-width: 330px;
+    margin: 0 auto;
+    padding: 15px;
+}
+
+.form-signin-heading {
+    font-size: 30px;
+    margin-top: 80px;
+    line-height: 1.1;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+}

@@ -4,9 +4,14 @@
  * @typedef { import("@prisma/client").PrismaClient } Prisma
  * @typedef { import("@prisma/client").UserCreateArgs } UserCreateArgs
  */
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken')
 
- const { DateTimeResolver } = require('graphql-scalars')
- 
+const { DateTimeResolver } = require('graphql-scalars')
+const dotenv = require('dotenv');
+
+dotenv.config();
+const secret = process.env.SECRET;
 
 const resolvers = {
   Query: {
@@ -26,6 +31,27 @@ const resolvers = {
   },
 
     Mutation: {
+        login: async (parent, { input: { id, password } }, { prisma }) => {
+            const user = await prisma.user.findUnique({ where: { id } });
+      
+            if (!user) {
+                const hashedPassword = await bcrypt.hash(password, 10);
+              throw new Error('Nieprawidłowe ID lub hasło' + hashedPassword);
+            }
+            
+            const passwordMatch = await bcrypt.compare(password, user.password);
+      
+            if (!passwordMatch) {
+              throw new Error('Nieprawidłowe ID lub hasło');
+            }
+      
+            const token = jwt.sign({ userId: user.id, name: user.first_name, last_name: user.last_name}, secret);
+      
+            return {
+              token,
+              user,
+            };
+        },
         createGroup: async (parent, args, { prisma }) => {
             return prisma.group.create({
                 data: args

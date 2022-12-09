@@ -6,8 +6,14 @@ type Mutation {
     createRoom(input: CreateRoomInput!): Room!
     addStudentGrade(input: AddUserGradeInput!): User!
     addGroupSchedule(input: AddGroupScheduleInput!): Schedule!
+    login(input: LoginInput!): LoginResponse!
+
 }
 
+  type LoginResponse {
+    token: String!
+    user: User!
+  }
 
 type Query {
     allUsers: [User!]!
@@ -147,5 +153,11 @@ input AddGroupScheduleInput {
 input CreateRoomInput {
     name: String!
 }
+
+  input LoginInput {
+    id: Int!
+    password: String!
+  }
+
 
 scalar DateTime

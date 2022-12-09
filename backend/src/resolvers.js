@@ -13,9 +13,41 @@ const dotenv = require('dotenv');
 dotenv.config();
 const secret = process.env.SECRET;
 
+
+// function for verify token
+async function verifyToken (prisma, headers) {
+    const token = headers.authorization || '';
+    if (!token) {
+        throw new Error('Błąd autoryzacji!');
+    }
+    const decodedToken = jwt.verify(token, secret);
+    if (!decodedToken || !decodedToken.userId) {
+        throw new Error('Błędny token!');
+    }
+    const user = await prisma.user.findUnique({ where: { id: decodedToken.userId } });
+    if (!user) {
+        throw new Error('Błąd autoryzacji!');
+    }
+    if(user.access_level < 1) {
+        throw new Error('Brak uprawnień!');
+    }
+    return user;
+}
+
+
 const resolvers = {
   Query: {
-    allUsers: async (parent, args, { prisma }) => {return prisma.user.findMany() },
+    allUsers: async (parent, args, { prisma, headers, user }) => {
+        console.log(headers);
+        try {
+            await verifyToken(prisma, headers);
+        } catch (error) {
+            throw new Error(error, error.message, error.stack, error.name);
+        }
+        
+        
+        return prisma.user.findMany() 
+    },
     allGroups: async (parent, args, { prisma }) => {return prisma.group.findMany() },
     allMessages: async (parent, args, { prisma }) => {return prisma.message.findMany() },
     allSubjects: async (parent, args, { prisma }) => {return prisma.subject.findMany() },
@@ -46,7 +78,7 @@ const resolvers = {
             }
       
             const token = jwt.sign({ userId: user.id, name: user.first_name, last_name: user.last_name}, secret);
-      
+            console.log(token);
             return {
               token,
               user,

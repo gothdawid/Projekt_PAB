@@ -28,7 +28,8 @@ const server = new ApolloServer({
   resolvers,
   context: ({ req }) => ({ 
     prisma: prisma,
-    user: getUser(req)
+    user: getUser(req),
+    headers: req.headers || '',
    }),
 });
 

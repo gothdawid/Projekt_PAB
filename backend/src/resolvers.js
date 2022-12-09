@@ -4,13 +4,74 @@
  * @typedef { import("@prisma/client").PrismaClient } Prisma
  * @typedef { import("@prisma/client").UserCreateArgs } UserCreateArgs
  */
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken')
 
- const { DateTimeResolver } = require('graphql-scalars')
- 
+const { DateTimeResolver } = require('graphql-scalars')
+const dotenv = require('dotenv');
+
+dotenv.config();
+const secret = process.env.SECRET;
+
+
+// function for verify token
+async function verifyToken (prisma, headers) {
+    const token = headers.authorization || '';
+    if (!token) {
+        throw new Error('Błąd autoryzacji!');
+    }
+    let decodedToken = null;
+    try {
+        decodedToken = jwt.verify(
+            token, 
+            secret, {
+                issuer: 'MyApp',
+                audience: 'https://myapp.com',
+                subject: 'user',
+                jwtid: '12345',
+          });
+        // jeśli token jest prawidłowy, to zostanie zwrócony obiekt z danymi użytkownika
+      } catch (error) {
+        // jeśli token jest przedawniony, to zostanie rzucony wyjątek TokenExpiredError
+        if (error instanceof jwt.TokenExpiredError) {
+            throw new Error('Token jest przedawniony');
+        } else {
+            console.log(error);
+            throw new Error('Token jest nieprawidłowy');
+            
+        }
+      }
+
+
+
+
+    if (!decodedToken || !decodedToken.userId) {
+        throw new Error('Błędny token!');
+    }
+    const user = await prisma.user.findUnique({ where: { id: decodedToken.userId } });
+    if (!user) {
+        throw new Error('Błąd autoryzacji!');
+    }
+    if(user.access_level < 1) {
+        throw new Error('Brak uprawnień!');
+    }
+    return user;
+}
+
 
 const resolvers = {
   Query: {
-    allUsers: async (parent, args, { prisma }) => {return prisma.user.findMany() },
+    allUsers: async (parent, args, { prisma, headers, user }) => {
+        console.log(headers);
+        try {
+            await verifyToken(prisma, headers);
+        } catch (error) {
+            throw new Error(error, error.message, error.stack, error.name);
+        }
+        
+        
+        return prisma.user.findMany() 
+    },
     allGroups: async (parent, args, { prisma }) => {return prisma.group.findMany() },
     allMessages: async (parent, args, { prisma }) => {return prisma.message.findMany() },
     allSubjects: async (parent, args, { prisma }) => {return prisma.subject.findMany() },
@@ -26,6 +87,43 @@ const resolvers = {
   },
 
     Mutation: {
+        login: async (parent, { input: { id, password } }, { prisma }) => {
+            const user = await prisma.user.findUnique({ where: { id } });
+      
+            if (!user) {
+                const hashedPassword = await bcrypt.hash(password, 10);
+              throw new Error('Nieprawidłowe ID lub hasło' + hashedPassword);
+            }
+            
+            const passwordMatch = await bcrypt.compare(password, user.password);
+      
+            if (!passwordMatch) {
+              throw new Error('Nieprawidłowe ID lub hasło');
+            }
+      
+            const token = jwt.sign(
+                // pierwszy parametr to obiekt z danymi użytkownika, które mają zostać zapisane w tokenie
+                { userId: user.id, name: user.first_name, last_name: user.last_name},
+                // drugi parametr to unikalny klucz secret, który jest używany do szyfrowania tokenu
+                secret,
+                // trzeci parametr to obiekt z dodatkowymi opcjami, które mają zostać ustawione w tokenie
+                {
+                  issuer: 'MyApp',
+                  audience: 'https://myapp.com',
+                  subject: 'user',
+                  jwtid: '12345',
+                  algorithm: 'HS512',
+                  expiresIn: '10m',
+                },
+              );
+
+
+            console.log(token);
+            return {
+              token,
+              user,
+            };
+        },
         createGroup: async (parent, args, { prisma }) => {
             return prisma.group.create({
                 data: args

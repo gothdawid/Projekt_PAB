@@ -1,4 +1,5 @@
 backend/node_modules/*
+backend/migrations/*
 frontend/node_modules/*
 node_modules/*
 */package-lock.json

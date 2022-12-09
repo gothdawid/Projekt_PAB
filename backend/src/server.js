@@ -1,15 +1,38 @@
 const { ApolloServer } = require('apollo-server')
+const jwt = require('jsonwebtoken')
 const { resolvers } = require('./resolvers')
-const { context } = require('./context')
 const { gql } = require('apollo-server')
 const {readFileSync} = require('fs');
+const { PrismaClient } = require('@prisma/client')
+const bcrypt = require('bcryptjs');
 
+const prisma = new PrismaClient()
+const dotenv = require('dotenv');
+
+dotenv.config();
+const secret = process.env.SECRET;
 const typeDefs = gql`${readFileSync(__dirname.concat('/schema.graphql'), 'utf8')}`;
 
-const server = new ApolloServer({ typeDefs, resolvers, context: context })
+const getUser = (req) => {
+  const token = req.headers.authorization || '';
 
-server.listen().then(({ url }) =>
-  console.log(`
-🚀 Server ready at: ${url}
-⭐️ See sample queries: http://pris.ly/e/js/graphql-sdl-first#using-the-graphql-api`),
-)
+  try {
+    return jwt.verify(token, secret);
+  } catch (err) {
+    return {};
+  }
+}
+
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  context: ({ req }) => ({ 
+    prisma: prisma,
+    user: getUser(req),
+    headers: req.headers || '',
+   }),
+});
+
+server.listen().then(({ url }) => {
+  console.log(`Server ready at ${url}`);
+});

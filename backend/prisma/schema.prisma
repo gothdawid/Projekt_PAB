@@ -14,15 +14,16 @@ model User {
   address   String
   city      String
   group_id  Int? 
-  avatar    String
+  avatar    String?
   Group     Group?    @relation(name: "UsersInGroup", fields: [group_id], references: [id])
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime @updatedAt @default(now())
   Sent      Message[] @relation("Sender")
   Received  Message[] @relation("Receiver")
   isTeacher Boolean
   Subjects   Subject[]
   Grades    Grade[]
+  password  String
 }
 
 model Group {

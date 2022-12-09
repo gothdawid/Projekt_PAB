@@ -20,7 +20,31 @@ async function verifyToken (prisma, headers) {
     if (!token) {
         throw new Error('Błąd autoryzacji!');
     }
-    const decodedToken = jwt.verify(token, secret);
+    let decodedToken = null;
+    try {
+        decodedToken = jwt.verify(
+            token, 
+            secret, {
+                issuer: 'MyApp',
+                audience: 'https://myapp.com',
+                subject: 'user',
+                jwtid: '12345',
+          });
+        // jeśli token jest prawidłowy, to zostanie zwrócony obiekt z danymi użytkownika
+      } catch (error) {
+        // jeśli token jest przedawniony, to zostanie rzucony wyjątek TokenExpiredError
+        if (error instanceof jwt.TokenExpiredError) {
+            throw new Error('Token jest przedawniony');
+        } else {
+            console.log(error);
+            throw new Error('Token jest nieprawidłowy');
+            
+        }
+      }
+
+
+
+
     if (!decodedToken || !decodedToken.userId) {
         throw new Error('Błędny token!');
     }
@@ -77,7 +101,23 @@ const resolvers = {
               throw new Error('Nieprawidłowe ID lub hasło');
             }
       
-            const token = jwt.sign({ userId: user.id, name: user.first_name, last_name: user.last_name}, secret);
+            const token = jwt.sign(
+                // pierwszy parametr to obiekt z danymi użytkownika, które mają zostać zapisane w tokenie
+                { userId: user.id, name: user.first_name, last_name: user.last_name},
+                // drugi parametr to unikalny klucz secret, który jest używany do szyfrowania tokenu
+                secret,
+                // trzeci parametr to obiekt z dodatkowymi opcjami, które mają zostać ustawione w tokenie
+                {
+                  issuer: 'MyApp',
+                  audience: 'https://myapp.com',
+                  subject: 'user',
+                  jwtid: '12345',
+                  algorithm: 'HS512',
+                  expiresIn: '10m',
+                },
+              );
+
+
             console.log(token);
             return {
               token,

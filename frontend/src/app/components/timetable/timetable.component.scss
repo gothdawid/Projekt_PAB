@@ -1,0 +1,29 @@
+.timetable {
+    display: grid;
+    grid-template-columns: 0.15fr 0.85fr;
+    grid-template-rows: 500px
+}   
+
+.groups-info {
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    flex-flow: column;
+    align-items: center;
+}
+
+.timetable-info {
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-around;
+    flex-flow: column;
+    align-items: center;
+    flex-direction: row;
+}
+
+.week-text {
+    display: flex;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 500;
+}

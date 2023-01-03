@@ -1,17 +1,23 @@
 <div class="position">
     <div class="container">
-        <form class="form-signin">
+        <form class="form-signin" (ngSubmit)="onSubmit()">
             <h2 class="form-signin-heading mb-2">
                 Logowanie
             </h2>
-            <label for="inputIndex" class="sr-only">
-                Indeks
-            </label>
-            <input type="text" id="inputIndex" class="form-control" placeholder="Indeks" required="true" autofocus="">
-            <label for="inputPassword" class="sr-only">
-                Hasło
-            </label>
-            <input type="password" id="inputPassword" class="form-control" placeholder="Hasło" required="true">
+            <div>
+                <label for="inputIndex" class="sr-only">
+                    Indeks
+                </label>
+                <input  name="login" type="text" id="inputIndex" class="form-control" placeholder="Indeks" required="true" autofocus="" [(ngModel)]="login">
+                <div *ngIf="loginError" class="field-error">{{ loginError }}</div>
+            </div>
+            <div>
+                <label for="inputPassword" class="sr-only">
+                    Hasło
+                </label>
+                <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Hasło" required="true" [(ngModel)]="password">
+                <div *ngIf="passwordError" class="field-error">{{ passwordError }}</div>
+            </div>
             <div class="checkbox mt-2 mb-2">
                 <label>
                     <input type="checkbox" value="remember-me"> Zapmiętaj mnie

@@ -1,7 +1,7 @@
 <div class="nav header m-2" *ngIf="showHeader">
     <div class="user-info border border-3 me-2">
         <div class="text-user">
-            Zaloguj
+            {{ getUserName$ | async }}
         </div>
         <div class="text-clock">
             {{ time | date: 'dd/MM/yyyy HH:mm:ss' }}

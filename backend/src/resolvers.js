@@ -91,16 +91,16 @@ const resolvers = {
             const user = await prisma.user.findUnique({ where: { id } });
       
             if (!user) {
-                const hashedPassword = await bcrypt.hash(password, 10);
               throw new Error('Nieprawidłowe ID lub hasło' + hashedPassword);
             }
-            
-            const passwordMatch = await bcrypt.compare(password, user.password);
+
+            const hashedPassword = await bcrypt.hash(user.password, 10);
+            const passwordMatch = await bcrypt.compare(password, hashedPassword);
       
             if (!passwordMatch) {
               throw new Error('Nieprawidłowe ID lub hasło');
             }
-      
+
             const token = jwt.sign(
                 // pierwszy parametr to obiekt z danymi użytkownika, które mają zostać zapisane w tokenie
                 { userId: user.id, name: user.first_name, last_name: user.last_name},
@@ -117,8 +117,6 @@ const resolvers = {
                 },
               );
 
-
-            console.log(token);
             return {
               token,
               user,

@@ -35,6 +35,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private excludeHeader(location: any) {
     if (location.url === '/sign-in') {
       this.showHeader = false;
+      return;
     }
     this.showHeader = true;
   }

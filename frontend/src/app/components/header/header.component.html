@@ -1,5 +1,5 @@
 <div class="nav header m-2" *ngIf="showHeader">
-    <div class="user-info border border-3 me-2">
+    <div routerLink="/sign-in" class="user-info border border-3 me-2">
         <div class="text-user">
             {{ getUserName$ | async }}
         </div>
@@ -7,7 +7,7 @@
             {{ time | date: 'dd/MM/yyyy HH:mm:ss' }}
         </div>
     </div>
-    <div class="logo-info border border-3 text-journal">
+    <div routerLink="/" class="logo-info border border-3 text-journal">
         <div class="logo-info-position">
             E-dziennik
         </div>

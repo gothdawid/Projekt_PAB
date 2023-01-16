@@ -23,6 +23,7 @@ export class SigninComponent implements OnInit {
     if (!this.validateForm(this.login, this.password)) {
       return;
     }
+    debugger
     this.authService.login(Number(this.login), this.password);
     this.router.navigate(['/']);
   }

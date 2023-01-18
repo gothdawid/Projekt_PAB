@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router'
+import { catchError, take } from 'rxjs';
 
 @Component({
   selector: 'app-signin',
@@ -12,6 +13,7 @@ export class SigninComponent implements OnInit {
   public password: string = '';
   public loginError: string = '';
   public passwordError: string = '';
+  public errorRequest: string = '';
 
   constructor(private authService: AuthService, private router: Router) { }
 
@@ -24,8 +26,18 @@ export class SigninComponent implements OnInit {
       return;
     }
     debugger
-    this.authService.login(Number(this.login), this.password);
-    this.router.navigate(['/']);
+    this.authService.login(Number(this.login), this.password)
+      .pipe(take(1))
+      .subscribe({ 
+        next: (authenticated) => {
+          if(authenticated) {
+            this.router.navigate(['/']);
+          } else {
+            debugger
+            this.errorRequest = 'Invalid login or password';
+          }
+        }
+      });
   }
 
   private validateForm(login: number | undefined, password: string): boolean {
@@ -47,5 +59,6 @@ export class SigninComponent implements OnInit {
   private clearErrors(): void {
     this.loginError = '';
     this.passwordError = '';
+    this.errorRequest = '';
   }
 }

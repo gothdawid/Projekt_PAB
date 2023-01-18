@@ -1,26 +1,11 @@
 import { Injectable } from '@angular/core';
-import { gql } from 'apollo-angular'
 import { ApiService } from './api.service';
 import jwt_decode from 'jwt-decode';
 import { Store } from '@ngrx/store';
 import { LoginState } from '../models/LoginState';
 import { setTokenData } from '../stores/login.actions';
-
-const LOGIN = gql`
-  mutation login($id: Int!, $password: String!) {
-    login(input: { id: $id, password: $password }) {
-      token,
-      user {
-        id, 
-        first_name,
-        last_name,
-        address,
-        city,
-        group_id,
-        isTeacher
-      }
-    }
-  }`;
+import { Observable, Subject } from 'rxjs';
+import * as graphOprations from '../graphql-operations';
 
 @Injectable({
   providedIn: 'root'
@@ -29,9 +14,10 @@ export class AuthService {
 
   constructor(private service: ApiService, private loginStore: Store<LoginState>) { }
 
-  public login(id: number, password: string): void {
+  public login(id: number, password: string): Observable<boolean> {
+    const result = new Subject<boolean>();
     this.service.apollo.mutate({
-      mutation: LOGIN,
+      mutation: graphOprations.LOGIN,
         variables: {
           id: id, password: password
         }
@@ -48,9 +34,16 @@ export class AuthService {
             userId: tokenData.userId
           }
         }));
+        result.next(true);
+        result.complete();
       },
-      error: (err: any) => console.log(err)
+      error: (err: any) => {
+        console.log(err);
+        result.next(false);
+        result.complete();
+      }
     });
+    return result;
   }
 
   public checkLogin(): void {
@@ -65,7 +58,6 @@ export class AuthService {
     const currentDate = new Date();
     const tokenExpiryDate = new Date(tokenData.exp * 1000);
 
-    debugger
     if (currentDate > tokenExpiryDate) {
       localStorage.removeItem('token');  
       return;

@@ -4,6 +4,9 @@
             <h2 class="form-signin-heading mb-2">
                 Logowanie
             </h2>
+            <div *ngIf="errorRequest" class="mt-2 mb-2 alert alert-danger">
+                {{ errorRequest }}
+            </div>
             <div>
                 <label for="inputIndex" class="sr-only">
                     Indeks

@@ -91,7 +91,7 @@ const resolvers = {
             const user = await prisma.user.findUnique({ where: { id } });
       
             if (!user) {
-              throw new Error('Nieprawidłowe ID lub hasło' + hashedPassword);
+              throw new Error('Nieprawidłowe ID lub hasło');
             }
 
             const hashedPassword = await bcrypt.hash(user.password, 10);

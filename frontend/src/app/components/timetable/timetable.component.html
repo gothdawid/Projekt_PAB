@@ -5,7 +5,8 @@
 </ng-container>
 <div *ngIf="!loading" class="nav timetable m-5">
     <div class="groups-info border border-3 me-5">
-        <div *ngFor="let group of groups" class="groups">
+        <div *ngFor="let group of groups" class="group mb-2"
+            (click)="changeGroup(group)">
             {{ group.name }}
         </div>
     </div>

@@ -25,7 +25,6 @@ export class SigninComponent implements OnInit {
     if (!this.validateForm(this.login, this.password)) {
       return;
     }
-    debugger
     this.authService.login(Number(this.login), this.password)
       .pipe(take(1))
       .subscribe({ 
@@ -33,7 +32,6 @@ export class SigninComponent implements OnInit {
           if(authenticated) {
             this.router.navigate(['/']);
           } else {
-            debugger
             this.errorRequest = 'Invalid login or password';
           }
         }

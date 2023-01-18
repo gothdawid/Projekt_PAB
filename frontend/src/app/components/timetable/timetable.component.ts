@@ -19,6 +19,19 @@ export class TimetableComponent implements OnInit, OnDestroy {
 
   constructor(private service: ApiService) { }
 
+  public changeGroup(group: Group): void {
+    if (!group) {
+      return;
+    }
+
+    if (this.currentGroup?.id == group.id) {
+      return;
+    }
+
+    this.currentGroup = group;
+    this.getGroupSchedule();
+  }
+
   ngOnInit(): void {
     this.service.apollo.watchQuery<any>({
       query: graphOperations.GET_GROUPS

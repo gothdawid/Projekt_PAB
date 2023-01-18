@@ -27,3 +27,13 @@
     font-size: 20px;
     font-weight: 500;
 }
+
+.center-loading-icon {
+    position: fixed;
+    width: 100%;
+    height:100%;
+    display: flex;
+    align-items: center;
+    top: 0;
+    justify-content: center
+}

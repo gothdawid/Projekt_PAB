@@ -15,6 +15,7 @@ import { TimetableComponent } from './components/timetable/timetable.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { loginReducer } from './stores/login.reducer';
+import { LoadingIconComponent } from './components/loading-icon/loading-icon.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { loginReducer } from './stores/login.reducer';
     HeaderComponent,
     HomeComponent,
     SigninComponent,
-    TimetableComponent
+    TimetableComponent,
+    LoadingIconComponent
   ],
   imports: [
     BrowserModule,

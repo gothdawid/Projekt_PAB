@@ -1,7 +1,12 @@
-<div class="nav timetable m-5">
+<ng-container *ngIf="loading">
+    <div class="center-loading-icon">
+        <app-loading-icon></app-loading-icon>
+    </div>
+</ng-container>
+<div *ngIf="!loading" class="nav timetable m-5">
     <div class="groups-info border border-3 me-5">
-        <div class="groups">
-            22INF-SP
+        <div *ngFor="let group of groups" class="groups">
+            {{ group.name }}
         </div>
     </div>
     <div class="timetable-info border border-3">

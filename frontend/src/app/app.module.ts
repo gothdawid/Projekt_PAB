@@ -16,6 +16,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { loginReducer } from './stores/login.reducer';
 import { LoadingIconComponent } from './components/loading-icon/loading-icon.component';
+import { AccountComponent } from './components/account/account.component';
+import { MessagesComponent } from './components/messages/messages.component';
+import { GradesComponent } from './components/grades/grades.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,10 @@ import { LoadingIconComponent } from './components/loading-icon/loading-icon.com
     HomeComponent,
     SigninComponent,
     TimetableComponent,
-    LoadingIconComponent
+    LoadingIconComponent,
+    AccountComponent,
+    MessagesComponent,
+    GradesComponent
   ],
   imports: [
     BrowserModule,

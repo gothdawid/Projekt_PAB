@@ -1,6 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { filter, Subject, takeUntil } from 'rxjs';
+import { LoginState } from 'src/app/models/LoginState';
+import * as LoginSelector from '../../stores/login.selectors';
 
 @Component({
   selector: 'app-header',
@@ -10,9 +13,10 @@ import { filter, Subject, takeUntil } from 'rxjs';
 export class HeaderComponent implements OnInit, OnDestroy {
   public time = new Date();
   public showHeader = true;
+  public getUserName$ = this.store.select(LoginSelector.getUserName);
   private routerUnsubscribe = new Subject<void>();
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private store: Store<LoginState>) { }
 
   ngOnDestroy(): void {
     this.routerUnsubscribe.next();
@@ -31,6 +35,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private excludeHeader(location: any) {
     if (location.url === '/sign-in') {
       this.showHeader = false;
+      return;
     }
+    this.showHeader = true;
   }
 }

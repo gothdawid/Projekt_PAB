@@ -47,8 +47,44 @@ export class TimetableComponent implements OnInit, OnDestroy {
       });
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.querySubscription?.unsubscribe();
+  }
+
+  public printPage(id: string): void {
+      var printHtml = window.document.getElementById(id)?.outerHTML;
+      if(!printHtml) {
+        return;
+      }
+
+      let popupWin;
+      popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
+      popupWin?.document.open();
+      console.log(document.head)
+      const stylesHtml = this.getTagsHtml('style');
+      const linksHtml = this.getTagsHtml('link');
+      popupWin?.document.write(`
+        <html>
+          <head>
+            ${linksHtml}
+            ${stylesHtml}
+          </head>
+          <body onload="window.print();window.close()">${printHtml}</body>
+        </html>`
+      );
+      popupWin?.document.close();
+  }
+
+  private getTagsHtml(tagName: keyof HTMLElementTagNameMap): string
+  {
+      const htmlStr: string[] = [];
+      const elements = document.getElementsByTagName(tagName);
+      for (let idx = 0; idx < elements.length; idx++)
+      {
+          htmlStr.push(elements[idx].outerHTML);
+      }
+
+      return htmlStr.join('\r\n');
   }
 
   private getGroupSchedule(): void {
@@ -79,12 +115,14 @@ export class TimetableComponent implements OnInit, OnDestroy {
     const schedulesGrouped = this.groupBy(this.schedules, "day") as { [key: string]: Array<Schedule> };
     const collectionSchedulesPerDay = new Map<Day, SchedulePerDay[]>();
     for (const property in schedulesGrouped) {
-      const schedulesPerDay: SchedulePerDay[] =  schedulesGrouped[property].map(s => ({
+      const schedulesPerDay: SchedulePerDay[] = schedulesGrouped[property]
+          .sort((a,b) => (a.time > b.time) ? 1 : ((b.time > a.time) ? -1 : 0))
+          .map(s => ({
         id: s.id,
+        time: this.getScheduleHour(s.time),
         subject: s.Subject.name,
         teacher: s.Subject.Teacher.first_name + " " + s.Subject.Teacher.last_name,
         room: s.Room.name,
-        time: this.getScheduleHour(s.time)
       }));
       const day: Day = Number(property);
       collectionSchedulesPerDay.set(day, schedulesPerDay);
@@ -102,6 +140,9 @@ export class TimetableComponent implements OnInit, OnDestroy {
 
   private getScheduleHour(value: number): string {
     const valueString = value.toString();
+    if (valueString.length < 3) {
+      return "";
+    }
     return valueString.slice(0, valueString.length-2) + ":" + valueString.slice(valueString.length-2);
   }
 }

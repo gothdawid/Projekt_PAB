@@ -12,169 +12,62 @@
     </div>
     <div class="timetable-info border border-3">
         <div class="mb-2 mt-2">
-            <div>
-                <div class="monday">
-                    <div class="week-text">
-                        Poniedziałek
-                    </div>
-                    <table class="table table-striped table-schedule">
-                    <thead class="table-dark">
-                            <tr>
-                                <th scope="col">Godzina</th>
-                                <th scope="col">Nazwa przedmiotu</th>
-                                <th scope="col">Nauczyciel</th>
-                                <th scope="col">Sala</th>
-                            </tr>
-                    </thead>
-                    <tbody>
-                            <tr *ngFor="let schedule of schedulesPerDay.get(0)">
-                                <td>
-                                    {{ schedule.time }}
-                                </td>
-                                <td class="">
-                                    {{ schedule.subject }}
-                                </td>
-                                <td class="text-break">
-                                    {{ schedule.teacher }}
-                                </td>
-                                <td>
-                                    {{ schedule.room }}
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-secondary" (click)="printPage('printSchedules')">
+                    <i class="bi bi bi-printer-fill"> Drukuj </i>
+                </button>
             </div>
-            <div>
-                <div class="tuesday">
-                    <div class="week-text">
-                        Wtorek
+            <div id="printSchedules">
+                <div>
+                    <div class="monday">
+                        <div class="week-text">
+                            Poniedziałek
+                        </div>
+                        <app-table 
+                            [headers]="['Id', 'Godzina', 'Nazwa przedmiotu', 'Nauczyciel', 'Sala']"
+                            [data]="schedulesPerDay.get(0) ?? []"></app-table>
+                        
                     </div>
-                    <table class="table table-striped table-schedule">
-                        <thead class="table-dark">
-                            <tr>
-                                <th scope="col">Godzina</th>
-                                <th scope="col">Nazwa przedmiotu</th>
-                                <th scope="col">Nauczyciel</th>
-                                <th scope="col">Sala</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let schedule of schedulesPerDay.get(1)">
-                                <td>
-                                    {{ schedule.time }}
-                                </td>
-                                <td class="">
-                                    {{ schedule.subject }}
-                                </td>
-                                <td class="text-break">
-                                    {{ schedule.teacher }}
-                                </td>
-                                <td>
-                                    {{ schedule.room }}
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
                 </div>
-            </div>
-            <div>
-                <div class="wednesday">
-                    <div class="week-text">
-                        Środa
+                <div>
+                    <div class="tuesday">
+                        <div class="week-text">
+                            Wtorek
+                        </div>
+                        <app-table 
+                            [headers]="['Id', 'Godzina', 'Nazwa przedmiotu', 'Nauczyciel', 'Sala']"
+                            [data]="schedulesPerDay.get(1) ?? []"></app-table>
                     </div>
-                    <table class="table table-striped table-schedule">
-                        <thead class="table-dark">
-                            <tr>
-                                <th scope="col">Godzina</th>
-                                <th scope="col">Nazwa przedmiotu</th>
-                                <th scope="col">Nauczyciel</th>
-                                <th scope="col">Sala</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let schedule of schedulesPerDay.get(2)">
-                                <td>
-                                    {{ schedule.time }}
-                                </td>
-                                <td class="">
-                                    {{ schedule.subject }}
-                                </td>
-                                <td class="text-break">
-                                    {{ schedule.teacher }}
-                                </td>
-                                <td>
-                                    {{ schedule.room }}
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
                 </div>
-            </div>
-            <div>
-                <div class="thursday">
-                    <div class="week-text">
-                        Czwartek
+                <div>
+                    <div class="wednesday">
+                        <div class="week-text">
+                            Środa
+                        </div>
+                        <app-table 
+                            [headers]="['Id', 'Godzina', 'Nazwa przedmiotu', 'Nauczyciel', 'Sala']"
+                            [data]="schedulesPerDay.get(2) ?? []"></app-table>
                     </div>
-                    <table class="table table-striped table-schedule">
-                        <thead class="table-dark">
-                            <tr>
-                                <th scope="col">Godzina</th>
-                                <th scope="col">Nazwa przedmiotu</th>
-                                <th scope="col">Nauczyciel</th>
-                                <th scope="col">Sala</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let schedule of schedulesPerDay.get(3)">
-                                <td>
-                                    {{ schedule.time }}
-                                </td>
-                                <td class="">
-                                    {{ schedule.subject }}
-                                </td>
-                                <td class="text-break">
-                                    {{ schedule.teacher }}
-                                </td>
-                                <td>
-                                    {{ schedule.room }}
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
                 </div>
-            </div>
-            <div>
-                <div class="friday">
-                    <div class="week-text">
-                        Piątek
+                <div>
+                    <div class="thursday">
+                        <div class="week-text">
+                            Czwartek
+                        </div>
+                        <app-table 
+                            [headers]="['Id', 'Godzina', 'Nazwa przedmiotu', 'Nauczyciel', 'Sala']"
+                            [data]="schedulesPerDay.get(3) ?? []"></app-table>
                     </div>
-                    <table class="table table-striped table-schedule">
-                        <thead class="table-dark">
-                            <tr>
-                                <th scope="col">Godzina</th>
-                                <th scope="col">Nazwa przedmiotu</th>
-                                <th scope="col">Nauczyciel</th>
-                                <th scope="col">Sala</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let schedule of schedulesPerDay.get(4)">
-                                <td>
-                                    {{ schedule.time }}
-                                </td>
-                                <td class="">
-                                    {{ schedule.subject }}
-                                </td>
-                                <td class="text-break">
-                                    {{ schedule.teacher }}
-                                </td>
-                                <td>
-                                    {{ schedule.room }}
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                </div>
+                <div>
+                    <div class="friday">
+                        <div class="week-text">
+                            Piątek
+                        </div>
+                        <app-table 
+                            [headers]="['Id', 'Godzina', 'Nazwa przedmiotu', 'Nauczyciel', 'Sala']"
+                            [data]="schedulesPerDay.get(4) ?? []"></app-table>
+                    </div>
                 </div>
             </div>
         </div>

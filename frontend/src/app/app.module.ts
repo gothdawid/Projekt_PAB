@@ -19,6 +19,7 @@ import { LoadingIconComponent } from './components/loading-icon/loading-icon.com
 import { AccountComponent } from './components/account/account.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import { GradesComponent } from './components/grades/grades.component';
+import { TableComponent } from './components/table/table.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { GradesComponent } from './components/grades/grades.component';
     LoadingIconComponent,
     AccountComponent,
     MessagesComponent,
-    GradesComponent
+    GradesComponent,
+    TableComponent
   ],
   imports: [
     BrowserModule,

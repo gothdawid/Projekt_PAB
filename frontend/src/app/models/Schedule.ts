@@ -5,9 +5,9 @@ import { Subject } from "./Subject";
 export interface Schedule {    
     id: number,
     day: Day,
-    time: Date,
+    time: number,
     subjectId: number,
-    Subject: Subject[],
+    Subject: Subject,
     group_id: number,
     room_id: number,
     Room: Room,

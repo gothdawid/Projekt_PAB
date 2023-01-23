@@ -13,12 +13,12 @@
 }
 
 .timetable-info {
-    border-radius: 10px;
     display: flex;
     justify-content: space-around;
     flex-flow: column;
     align-items: center;
-    flex-direction: row;
+    flex-direction: column;
+    height: fit-content;
 }
 
 .week-text {
@@ -47,4 +47,14 @@
 
 .group:hover {
     background-color: rgb(86, 86, 214);
+}
+
+table.table-schedule td {
+    min-width: 100px;
+    width: fit-content;
+    max-width: 400px;
+}
+
+.btn-width {
+    width: -webkit-fill-available;
 }

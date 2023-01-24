@@ -1,15 +1,18 @@
-<div class="nav header m-2" *ngIf="showHeader">
-    <div routerLink="/sign-in" class="user-info border border-3 me-2">
-        <div class="text-user">
-            {{ getUserName$ | async }}
-        </div>
-        <div class="text-clock">
-            {{ time | date: 'dd/MM/yyyy HH:mm:ss' }}
-        </div>
+<div class="navbar header bg-dark text-white" *ngIf="showHeader">
+    <div>
+        <img class="img-logo" src="assets/logo.png" />
     </div>
-    <div routerLink="/" class="logo-info border border-3 text-journal">
+    <div routerLink="/">
         <div class="logo-info-position">
             E-dziennik
+        </div>
+    </div>
+    <div routerLink="/sign-in">
+        <button class="text-user btn btn-outline-light">
+            {{ getUserName$ | async }}
+        </button>
+        <div class="text-clock">
+            {{ time | date: 'dd/MM/yyyy HH:mm:ss' }}
         </div>
     </div>
 </div>

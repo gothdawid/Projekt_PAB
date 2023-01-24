@@ -13,12 +13,12 @@
 }
 
 .timetable-info {
-    border-radius: 10px;
     display: flex;
     justify-content: space-around;
     flex-flow: column;
     align-items: center;
-    flex-direction: row;
+    flex-direction: column;
+    height: fit-content;
 }
 
 .week-text {
@@ -47,4 +47,18 @@
 
 .group:hover {
     background-color: rgb(86, 86, 214);
+}
+
+.btn-width {
+    width: -webkit-fill-available;
+}
+
+.btn-element {
+    height: 3rem;
+    width: 4rem;
+}
+
+.icon-element {
+    height: 3rem;
+    width: 4rem;
 }

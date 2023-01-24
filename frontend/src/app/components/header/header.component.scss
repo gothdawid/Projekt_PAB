@@ -1,31 +1,22 @@
 .header {
     display: grid;
-    grid-template-columns: 0.15fr 0.85fr;
-}
-
-.user-info {
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    flex-flow: column;
+    grid-template-columns: 0.2fr 0.5fr 0.2fr;
+    align-content: center;
+    justify-content: space-evenly;
     align-items: center;
-}
-
-.logo-info {
-    border-radius: 10px;
-    display: flex;
+    justify-items: center;
 }
 
 .logo-info-position {
-    margin-left: 37%;
+    font-size: 25px;
+    font-weight: 600;
     cursor: pointer;
 }
 
 .text-journal {
     font-size: 25px;
     font-weight: 600;
-    align-items: center;
-    
+    align-items: center;   
 }
 
 .text-user {
@@ -36,4 +27,8 @@
 
 .text-clock {
     font-size: 15px;
+}
+
+.img-logo {
+    width: 15%;
 }

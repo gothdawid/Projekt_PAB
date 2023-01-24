@@ -2,8 +2,8 @@ import { Group } from "./Group"
 
 export interface User {
     id: number,
-    firstName: string,
-    lastName: string,
+    first_name: string,
+    last_name: string,
     address: string,
     city: string,
     groupId: number,

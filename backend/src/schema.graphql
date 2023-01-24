@@ -29,6 +29,8 @@ type Query {
   SchedulesByRoom(room_id: ID!): [Schedule!]!
   SchedulesBySubject(subject_id: ID!): [Schedule!]!
   MyGrades: [Grade!]!
+  getMySentMessages: [Message!]!
+  getMyReceivedMessages: [Message!]!
 }
 
 type User {
@@ -38,7 +40,7 @@ type User {
   address: String!
   city: String!
   group_id: ID!
-  avatar    String
+  avatar: String
   Group: Group!
   createdAt: DateTime!
   updatedAt: DateTime!

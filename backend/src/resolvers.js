@@ -114,6 +114,14 @@ const resolvers = {
       console.log(user);
       return prisma.grade.findMany({ where: { student_id: user.id } });
     },
+    getMySentMessages: async (parent, args, { prisma, headers }) => {
+      const user = await verifyToken(prisma, headers);
+      return prisma.message.findMany({ where: { sender_id: user.id } });
+    },
+    getMyReceivedMessages: async (parent, args, { prisma, headers }) => {
+      const user = await verifyToken(prisma, headers);
+      return prisma.message.findMany({ where: { receiver_id: user.id } });
+    },
   },
 
   Mutation: {

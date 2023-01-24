@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-table',
@@ -14,14 +14,14 @@ export class TableComponent {
   @Input() set data(value: any[]) {
     this._data = value;
     this.dataCopy = [...this._data];
- }
+  }
     
- get data(): any[] {
-     return this._data;
- }
+  get data(): any[] {
+      return this._data;
+  }
 
- @Input()
- public sorting: boolean = true;
+  @Input()
+  public sorting: boolean = true;
 
   public dataCopy: any[] = [];
   public rowClicked: number = -1;

@@ -33,7 +33,7 @@ import { TableComponent } from './components/table/table.component';
     AccountComponent,
     MessagesComponent,
     GradesComponent,
-    TableComponent
+    TableComponent,
   ],
   imports: [
     BrowserModule,

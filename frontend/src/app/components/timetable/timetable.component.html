@@ -4,13 +4,13 @@
     </div>
 </ng-container>
 <div *ngIf="!loading" class="nav timetable m-5">
-    <div class="groups-info border border-3 me-5">
+    <div class="groups-info me-5">
         <div *ngFor="let group of groups" [ngClass] = "{'bg-secondary': currentGroup?.id == group.id }" class="btn btn-dark mt-2 mb-2 btn-width"
             (click)="changeGroup(group)">
             {{ group.name }}
         </div>
     </div>
-    <div class="timetable-info border border-3">
+    <div class="timetable-info">
         <div class="mb-2 mt-2">
             <div class="d-flex justify-content-end">
                 <button class="btn btn-secondary" (click)="printPage('printSchedules')">
@@ -25,8 +25,8 @@
                         </div>
                         <app-table 
                             [headers]="['Id', 'Godzina', 'Nazwa przedmiotu', 'Nauczyciel', 'Sala']"
-                            [data]="schedulesPerDay.get(0) ?? []"></app-table>
-                        
+                            [data]="schedulesPerDay.get(0) ?? []">
+                        </app-table>                        
                     </div>
                 </div>
                 <div>

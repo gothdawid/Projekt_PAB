@@ -6,5 +6,5 @@ const selectLoginState =
 
 export const getUserName = createSelector(
     selectLoginState,
-    login => login.tokenData ? login.tokenData.firstName + ' ' + login.tokenData?.lastName : 'Zaloguj'
+    login => login.tokenData ? login.tokenData.firstName + ' ' + login.tokenData?.lastName : ''
 );

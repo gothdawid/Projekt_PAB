@@ -20,6 +20,9 @@ export class TableComponent {
      return this._data;
  }
 
+ @Input()
+ public sorting: boolean = true;
+
   public dataCopy: any[] = [];
   public rowClicked: number = -1;
   public behaviour = '';
@@ -29,7 +32,7 @@ export class TableComponent {
   constructor() { }
 
   public headerClicked(rowId: number) {
-    if (this.dataCopy.length < 1) {
+    if (!this.sorting || this.dataCopy.length < 1) {
       return;
     }
 

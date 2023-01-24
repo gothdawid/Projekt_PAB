@@ -1,0 +1,22 @@
+<table class="table table-striped table-schedule">
+    <thead class="table-dark">
+            <tr>
+                <th *ngFor="let header of headers; let i = index" scope="col" (click)="headerClicked(i)">
+                    <ng-container *ngIf="i == rowClicked && behaviour == rules.Asc">
+                        <i class="bi bi-arrow-up"></i>
+                    </ng-container>
+                    <ng-container *ngIf="i == rowClicked && behaviour == rules.Desc">
+                        <i class="bi bi-arrow-down"></i>
+                    </ng-container>
+                    {{ header }}
+                </th>
+            </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let field of dataCopy">
+            <td class="text-break" *ngFor="let prop of Object.keys(field)">
+                {{ field[prop] }}
+            </td>
+        </tr>
+    </tbody>
+</table>

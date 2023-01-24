@@ -5,66 +5,72 @@
 </ng-container>
 <div *ngIf="!loading" class="nav timetable m-5">
     <div class="groups-info border border-3 me-5">
-        <div *ngFor="let group of groups" class="group mb-2"
+        <div *ngFor="let group of groups" [ngClass] = "{'bg-secondary': currentGroup?.id == group.id }" class="btn btn-dark mt-2 mb-2 btn-width"
             (click)="changeGroup(group)">
             {{ group.name }}
         </div>
     </div>
     <div class="timetable-info border border-3">
-        <div class="monday border border-3">
-            <div class="week-text">
-                PON
+        <div class="mb-2 mt-2">
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-secondary" (click)="printPage('printSchedules')">
+                    <i class="bi bi bi-printer-fill"> Drukuj </i>
+                </button>
             </div>
-            <div class="monday-info-1 border border-3">
-                systemy
-            </div>
-            <div class="monday-info-2 border border-3">
-                znowu
+            <div id="printSchedules">
+                <div>
+                    <div class="monday">
+                        <div class="week-text">
+                            Poniedziałek
+                        </div>
+                        <app-table 
+                            [headers]="['Id', 'Godzina', 'Nazwa przedmiotu', 'Nauczyciel', 'Sala']"
+                            [data]="schedulesPerDay.get(0) ?? []"></app-table>
+                        
+                    </div>
+                </div>
+                <div>
+                    <div class="tuesday">
+                        <div class="week-text">
+                            Wtorek
+                        </div>
+                        <app-table 
+                            [headers]="['Id', 'Godzina', 'Nazwa przedmiotu', 'Nauczyciel', 'Sala']"
+                            [data]="schedulesPerDay.get(1) ?? []"></app-table>
+                    </div>
+                </div>
+                <div>
+                    <div class="wednesday">
+                        <div class="week-text">
+                            Środa
+                        </div>
+                        <app-table 
+                            [headers]="['Id', 'Godzina', 'Nazwa przedmiotu', 'Nauczyciel', 'Sala']"
+                            [data]="schedulesPerDay.get(2) ?? []"></app-table>
+                    </div>
+                </div>
+                <div>
+                    <div class="thursday">
+                        <div class="week-text">
+                            Czwartek
+                        </div>
+                        <app-table 
+                            [headers]="['Id', 'Godzina', 'Nazwa przedmiotu', 'Nauczyciel', 'Sala']"
+                            [data]="schedulesPerDay.get(3) ?? []"></app-table>
+                    </div>
+                </div>
+                <div>
+                    <div class="friday">
+                        <div class="week-text">
+                            Piątek
+                        </div>
+                        <app-table 
+                            [headers]="['Id', 'Godzina', 'Nazwa przedmiotu', 'Nauczyciel', 'Sala']"
+                            [data]="schedulesPerDay.get(4) ?? []"></app-table>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="tuesday border border-3">
-            <div class="week-text">
-                WT
-            </div>
-            <div class="tuesday-info-1 border border-3">
-                systemy
-            </div>
-            <div class="tuesday-info-2 border border-3">
-                znowu
-            </div>
-        </div>
-        <div class="wednesday border border-3">
-            <div class="week-text">
-                ŚR
-            </div>
-            <div class="wednesday-info-1 border border-3">
-                systemy
-            </div>
-            <div class="wednesday-info-2 border border-3">
-                znowu
-            </div>
-        </div>
-        <div class="thursday border border-3">
-            <div class="week-text">
-                CZW
-            </div>
-            <div class="thursday-info-1 border border-3">
-                systemy
-            </div>
-            <div class="thursday-info-2 border border-3">
-                znowu
-            </div>
-        </div>
-        <div class="friday border border-3">
-            <div class="week-text">
-                PT
-            </div>
-            <div class="friday-info-1 border border-3">
-                systemy
-            </div>
-            <div class="friday-info-2 border border-3">
-                znowu
-            </div>
-        </div>
+        <div class="mt-4"></div>
     </div>
 </div>

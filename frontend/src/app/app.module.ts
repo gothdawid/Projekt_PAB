@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ApolloModule, APOLLO_NAMED_OPTIONS, NamedOptions } from 'apollo-angular'
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule, HttpHeaders } from '@angular/common/http'
 import { HttpLink } from 'apollo-angular/http'
 import { InMemoryCache } from '@apollo/client/core'
 
@@ -20,6 +20,7 @@ import { AccountComponent } from './components/account/account.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import { GradesComponent } from './components/grades/grades.component';
 import { TableComponent } from './components/table/table.component';
+import { TableRowDirective } from './components/table/table-row.directive';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { TableComponent } from './components/table/table.component';
     MessagesComponent,
     GradesComponent,
     TableComponent,
+    TableRowDirective,
   ],
   imports: [
     BrowserModule,
@@ -52,10 +54,7 @@ import { TableComponent } from './components/table/table.component';
           backend: {
             // <-- This settings will be saved by name: backend
             cache: new InMemoryCache(),
-            link: httpLink.create({
-              // TODO: move to env file
-              uri: 'http://localhost:4000'
-            })
+            link: createLink(httpLink) 
           }
         }
       },
@@ -65,3 +64,21 @@ import { TableComponent } from './components/table/table.component';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+function createLink(httpLink: HttpLink) {
+  const jwtToken = localStorage.getItem('token'); 
+
+  if (jwtToken) {
+    const token = JSON.parse(jwtToken);
+    return httpLink.create({
+      // TODO: move to env file
+      uri: 'http://localhost:4000',
+      headers: new HttpHeaders().set('Authorization', `${token}`)
+    })
+  }
+
+  return httpLink.create({
+    // TODO: move to env file
+    uri: 'http://localhost:4000'
+  })
+}

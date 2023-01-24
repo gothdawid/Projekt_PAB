@@ -8,6 +8,6 @@ export class ApiService {
   public apollo: ApolloBase
  
   constructor(private apolloProvider: Apollo) {
-    this.apollo = this.apolloProvider.use('backend')
+    this.apollo = this.apolloProvider.use('backend');
   }
 }

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { LoginState } from 'src/app/models/LoginState';
+import { getUserName } from 'src/app/stores/login.selectors';
 
 @Component({
   selector: 'app-home',
@@ -6,9 +9,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  public getUserName$ = this.store.select(getUserName);
 
-  constructor() {
-   }
+  constructor(private store: Store<LoginState>) {
+  }
 
   ngOnInit(): void {
   }

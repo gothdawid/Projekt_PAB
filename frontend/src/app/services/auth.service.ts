@@ -76,5 +76,16 @@ export class AuthService {
   public logout(): void {
     this.loginStore.dispatch(setTokenData({ tokenData: null }));
     localStorage.removeItem('token');
+    location.reload();
+  }
+
+  public isAuthenticated(): boolean {
+    this.checkLogin();
+    const token = localStorage.getItem('token');
+    if(token) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

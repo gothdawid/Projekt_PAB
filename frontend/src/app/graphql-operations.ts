@@ -63,3 +63,45 @@ export const GET_SCHEDULE_BY_GROUP_ID = gql`
     }
   }
 `;
+
+export const GET_MY_GRADES = gql`
+  query MyGrades {
+    MyGrades {
+      id,
+      grade,
+      student_id,
+      Student {
+        id,
+        first_name,
+        last_name,
+        address,
+        city,
+        group_id,
+        createdAt,
+        updatedAt,
+        isTeacher
+      },
+      subject_id,
+      Subject {
+        id,
+        name,
+        createdAt,
+        updatedAt,
+        teacher_id,
+        Teacher {
+          id,
+          first_name,
+          last_name,
+          address,
+          city,
+          group_id,
+          createdAt,
+          updatedAt,
+          isTeacher
+        }
+      },
+      createdAt,
+      updatedAt
+    }
+  }
+`;

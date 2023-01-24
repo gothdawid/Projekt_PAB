@@ -1,0 +1,11 @@
+<div>
+    <div class="mt-4 text-center">
+        <h3>Indeks</h3>
+    </div>
+    <div class="mt-4 mb-4">
+        <app-table 
+            [headers]="['Nazwa przedmiotu', 'Nauczyciel', 'Ocena']"
+            [data]="grades ?? []">
+        </app-table>
+    </div>
+</div>

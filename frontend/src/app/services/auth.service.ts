@@ -59,7 +59,7 @@ export class AuthService {
     const tokenExpiryDate = new Date(tokenData.exp * 1000);
 
     if (currentDate > tokenExpiryDate) {
-      localStorage.removeItem('token');  
+      localStorage.removeItem('token');
       return;
     }
 
@@ -71,5 +71,21 @@ export class AuthService {
         userId: tokenData.userId
       }
     }));
+  }
+
+  public logout(): void {
+    this.loginStore.dispatch(setTokenData({ tokenData: null }));
+    localStorage.removeItem('token');
+    location.reload();
+  }
+
+  public isAuthenticated(): boolean {
+    this.checkLogin();
+    const token = localStorage.getItem('token');
+    if(token) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

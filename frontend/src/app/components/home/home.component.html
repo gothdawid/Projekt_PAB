@@ -9,7 +9,7 @@
         </div>
     </div>
     <div class="me-4">
-        <button routerLink="/grades" class="btn btn-dark btn-element">
+        <button routerLink="/grades" class="btn btn-dark btn-element" [ngClass]="(getUserName$ | async) ? '' : 'disabled'">
             <i class="bi bi-mortarboard-fill icon"></i>
         </button>
         <div class="description">
@@ -17,7 +17,7 @@
         </div>
     </div>
     <div class="me-4">
-        <button routerLink="/messages" class="btn btn-dark btn-element">
+        <button routerLink="/messages" class="btn btn-dark btn-element" [ngClass]="(getUserName$ | async) ? '' : 'disabled'">
             <i class="bi bi-chat-left-dots-fill icon"></i>
         </button>
         <div class="description">
@@ -25,7 +25,7 @@
         </div>
     </div>
     <div class="me-4">
-        <button routerLink="/account" class="btn btn-dark btn-element">
+        <button routerLink="/account" class="btn btn-dark btn-element" [ngClass]="(getUserName$ | async) ? '' : 'disabled'">
             <i class="bi bi-person-circle icon"></i>
         </button>
         <div class="description">

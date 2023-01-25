@@ -3,6 +3,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { filter, Subject, takeUntil } from 'rxjs';
 import { LoginState } from 'src/app/models/LoginState';
+import { AuthService } from 'src/app/services/auth.service';
 import * as LoginSelector from '../../stores/login.selectors';
 
 @Component({
@@ -16,7 +17,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public getUserName$ = this.store.select(LoginSelector.getUserName);
   private routerUnsubscribe = new Subject<void>();
 
-  constructor(private router: Router, private store: Store<LoginState>) { }
+  constructor(private router: Router, private store: Store<LoginState>, public authService: AuthService) { }
 
   ngOnDestroy(): void {
     this.routerUnsubscribe.next();

@@ -225,11 +225,16 @@ const resolvers = {
         if (message.sender_id !== user.id && message.receiver_id !== user.id) {
           return false;
         }
-        const a = prisma.message.delete({ where: { id: parseInt(args.id) } });
-        return true;
+        let a = await prisma.message.delete({
+          where: { id: parseInt(args.id) },
+        });
+        if (a) {
+          return true;
+        }
       } catch (e) {
         return false;
       }
+      return false;
     },
   },
   User: {

@@ -1,1 +1,51 @@
-<p>account works!</p>
+<div class="page-account">
+    <div class="position">
+        <div class="avatar-position">
+            <img class="avatar" [src]="account.avatar" />
+            <div class="mt-2">
+                <a href="#" (click)="$event.preventDefault()">Edit</a>
+            </div>
+        </div>
+		<div class="column1">
+			<div class="firstname">
+				<label for="firstNameInput">Imię:</label>
+				<input readonly type="text" class="form-control" id="firstNameInput" [(ngModel)]="account.firstName">
+			</div>
+			<div class="id">
+				<label for="lastNameInput">Indeks:</label>
+				<input readonly type="text" class="form-control" id="lastNameInput" [(ngModel)]="account.id">
+			</div>
+			<div class="group">
+				<label for="groupInput">Grupa:</label>
+				<input readonly type="text" class="form-control" id="groupInput" [(ngModel)]="account.group">
+			</div>
+		</div>
+		<div class="column2">
+			<div class="lastnamme">
+				<label for="lastNameInput">Nazwisko:</label>
+				<input readonly type="text" class="form-control" id="lastNameInput" [(ngModel)]="account.lastName">
+			</div>
+			<div class="addressEmail">
+				<label for="emailInput">Email:</label>
+				<input type="email" class="form-control" id="emailInput" [(ngModel)]="account.email">
+			</div>
+			<div class="mt-2 address">
+				<h5>Adres korespodencji:</h5>
+				<div class="info-address">
+					<div class="street">
+						<label for="streetInput">Ulica:</label>
+						<input type="text" class="form-control" id="streetInput" [(ngModel)]="account.street">
+					</div>
+					<div class="city">
+						<label for="cityInput">Miasto:</label>
+						<input type="text" class="form-control" id="cityInput" [(ngModel)]="account.city">
+					</div>
+				</div>
+			</div>
+		</div>
+    </div>
+    <div class="mt-2 d-flex justify-content-center">
+        <button class="btn btn-success me-2">Save</button>
+        <button class="btn btn-secondary">Cancel</button>
+    </div>
+</div>

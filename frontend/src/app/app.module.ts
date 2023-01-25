@@ -22,6 +22,7 @@ import { GradesComponent } from './components/grades/grades.component';
 import { TableComponent } from './components/table/table.component';
 import { TableRowDirective } from './components/table/table-row.directive';
 import { HttpAuthInterceptor } from './HttpAuthInterceptor';
+import { ModalComponent } from './components/modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { HttpAuthInterceptor } from './HttpAuthInterceptor';
     GradesComponent,
     TableComponent,
     TableRowDirective,
+    ModalComponent,
   ],
   imports: [
     BrowserModule,

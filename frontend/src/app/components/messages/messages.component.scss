@@ -53,6 +53,7 @@ textarea {
     width: fit-content;
     padding: 1rem;
     --bs-bg-opacity: .2;
+    max-width: 50%;
 }
 
 .message-info-sender {
@@ -63,6 +64,7 @@ textarea {
     padding: 1rem;
     --bs-bg-opacity: .5;
     margin-left: auto;
+    max-width: 50%;
 }
 
 .message {

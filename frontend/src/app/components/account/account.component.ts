@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap/modal/modal-ref';
 
 @Component({
   selector: 'app-account',
@@ -20,9 +22,38 @@ export class AccountComponent implements OnInit {
     }
   }
 
-  constructor() { }
+  @ViewChild('editImageDialog')
+  editImageDialog?: TemplateRef<any>;
+  private editImageModal?: NgbModalRef;
+
+  constructor(private modalService: NgbModal) { }
 
   ngOnInit(): void {
   }
 
+  public openImageModel(): void {
+    this.editImageModal = this.modalService.open(this.editImageDialog, { centered: true });
+  }
+
+  public closeImageModal(): void {
+    this.editImageModal?.close();
+  }
+
+  public deleteImage(): void {
+    this.account.avatar = '';
+  }
+
+  public async onChange(event: any) {
+    const file = event.target.files[0];
+    this.account.avatar = await this.toBase64(file);
+  }
+
+  private toBase64(file: any): Promise<string | ArrayBuffer | null> {
+      return new Promise<string | ArrayBuffer | null>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+    });
+  }
 }

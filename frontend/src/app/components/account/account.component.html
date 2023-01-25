@@ -1,9 +1,14 @@
 <div class="page-account">
     <div class="position">
         <div class="avatar-position">
-            <img class="avatar" [src]="account.avatar" />
+			<ng-container *ngIf="account.avatar">
+				<img class="avatar" [src]="account.avatar" />
+			</ng-container>
+			<ng-container *ngIf="!account.avatar">
+				<img class="avatar" src="assets/default_image.jpg" />
+			</ng-container>
             <div class="mt-2">
-                <a href="#" (click)="$event.preventDefault()">Edit</a>
+                <span class="btn btn-link" (click)="openImageModel()">Edit</span>
             </div>
         </div>
 		<div class="column1">
@@ -49,3 +54,30 @@
         <button class="btn btn-secondary">Cancel</button>
     </div>
 </div>
+
+
+<ng-template #editImageDialog>
+	<app-modal>
+		<div header>
+			Edytuj avatar
+		</div>
+		<div body>
+			<ng-container *ngIf="account.avatar">
+				<div class="d-flex justify-content-center mt-2 mb-2">
+					<img class="avatar" [src]="account.avatar" />
+					<button type="button" class="btn-close" aria-label="Close" (click)="deleteImage()"></button>
+				</div>
+			</ng-container>
+			<ng-container *ngIf="!account.avatar">
+				<div class="d-flex justify-content-center mt-2 mb-2">
+					<img class="avatar" src="assets/default_image.jpg" />
+				</div>
+			</ng-container>
+			<input class="form-control" type="file" 
+            		(change)="onChange($event)">
+		</div>
+		<div footer>
+			<button class="btn btn-secondary" (click)="closeImageModal()">Zamknij</button>
+		</div>
+	</app-modal>
+</ng-template>

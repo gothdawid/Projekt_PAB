@@ -122,6 +122,14 @@ const resolvers = {
       const user = await verifyToken(prisma, headers);
       return prisma.message.findMany({ where: { receiver_id: user.id } });
     },
+    getAllMyMessages: async (parent, args, { prisma, headers }) => {
+      const user = await verifyToken(prisma, headers);
+      return prisma.message.findMany({
+        where: {
+          OR: [{ sender_id: user.id }, { receiver_id: user.id }],
+        },
+      });
+    },
   },
 
   Mutation: {

@@ -32,6 +32,7 @@ type Query {
   MyGrades: [Grade!]!
   getMySentMessages: [Message!]!
   getMyReceivedMessages: [Message!]!
+  getAllMyMessages: [Message!]!
 }
 
 type User {

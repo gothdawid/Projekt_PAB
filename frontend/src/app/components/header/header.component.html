@@ -7,10 +7,22 @@
             E-dziennik
         </div>
     </div>
-    <div routerLink="/sign-in">
-        <button class="text-user btn btn-outline-light">
-            {{ getUserName$ | async }}
-        </button>
+    <div>
+        <ng-container *ngIf="(getUserName$ | async)">
+            <div class="d-flex">
+                <div class="text-user text-break me-2">
+                    {{ getUserName$ | async }}
+                </div>
+                <button class="text-user btn btn-outline-light" (click)="authService.logout()">
+                    Wyloguj
+                </button>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="!(getUserName$ | async)">
+            <button routerLink="/sign-in" class="text-user btn btn-outline-light">
+                Zaloguj
+            </button>
+        </ng-container>
         <div class="text-clock">
             {{ time | date: 'dd/MM/yyyy HH:mm:ss' }}
         </div>

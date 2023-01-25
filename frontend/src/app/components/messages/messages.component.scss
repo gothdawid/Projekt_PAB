@@ -1,0 +1,87 @@
+.messages {
+    display: flex;
+    margin: 3.5rem;
+}
+
+.received {
+    border-radius: 10px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    min-height: 200px;
+    min-width: 150px;
+}
+
+.receiver-details {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.mess {
+    border-radius: 10px;
+    flex: 1;
+}
+
+.sender-receiver{
+    border-radius: 10px;
+}
+
+.sender-info {
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 10px;
+    margin: 0.2rem;
+    width: fit-content;
+    background-color: white;
+    padding: 0.25rem;
+}
+
+.message-position{
+    border-radius: 10px;    
+}
+
+textarea {
+    resize: none;
+    border-radius: 10px;
+}
+
+.message-info {
+    border: 4px solid rgba(255,255,255,.1);
+    border-radius: 10px;
+    margin: 1rem;
+    width: fit-content;
+    padding: 1rem;
+    --bs-bg-opacity: .2;
+}
+
+.message-info-sender {
+    border: 4px solid rgba(255,255,255,.1);
+    border-radius: 10px;
+    margin: 1rem;
+    width: fit-content;
+    padding: 1rem;
+    --bs-bg-opacity: .5;
+    margin-left: auto;
+}
+
+.message {
+    width: -webkit-fill-available;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    padding: 1rem;
+}
+
+.search-input-position {
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.search-input {
+    padding: 1rem;
+}
+
+.btn-position {
+    margin-left: auto;
+    display: flex;
+}

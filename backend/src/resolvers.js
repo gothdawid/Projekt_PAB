@@ -203,6 +203,26 @@ const resolvers = {
         },
       });
     },
+    deleteMessage: async (parent, args, { prisma, headers }) => {
+      const user = await verifyToken(prisma, headers);
+      // check if user is the sender or receiver
+      try {
+        const message = await prisma.message.findUnique({
+          where: { id: parseInt(args.id) },
+        });
+        // if message is not found
+        if (!message) {
+          return false;
+        }
+        if (message.sender_id !== user.id && message.receiver_id !== user.id) {
+          return false;
+        }
+        const a = prisma.message.delete({ where: { id: parseInt(args.id) } });
+        return true;
+      } catch (e) {
+        return false;
+      }
+    },
   },
   User: {
     Group: async (parent, args, { prisma }) => {

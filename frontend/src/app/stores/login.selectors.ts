@@ -8,3 +8,8 @@ export const getUserName = createSelector(
     selectLoginState,
     login => login.tokenData ? login.tokenData.firstName + ' ' + login.tokenData?.lastName : ''
 );
+
+export const getTokenData = createSelector(
+    selectLoginState,
+    login => login.tokenData
+);

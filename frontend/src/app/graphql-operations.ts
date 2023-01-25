@@ -1,20 +1,20 @@
 import { gql } from "apollo-angular";
 
 export const LOGIN = gql`
-  mutation login($receiver_id: ID!, $text: String!) {
-    login(input: { id: $id, password: $password }) {
-      token,
-      user {
-        id, 
-        first_name,
-        last_name,
-        address,
-        city,
-        group_id,
-        isTeacher
-      }
+mutation login($id: Int!, $password: String!) {
+  login(input: { id: $id, password: $password }) {
+    token,
+    user {
+      id, 
+      first_name,
+      last_name,
+      address,
+      city,
+      group_id,
+      isTeacher
     }
-  }`;
+  }
+}`;
 
 export const GET_GROUPS = gql`
   query allGroups {
@@ -132,4 +132,14 @@ export const SEND_MESSAGE = gql`
       id
     }
   }
+`
+
+export const GET_ALL_USERS = gql`
+query AllUsers {
+  allUsers {
+    id
+    last_name
+    first_name
+  }
+}
 `

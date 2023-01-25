@@ -1,28 +1,29 @@
 <div class="nav messages">
     <div class="received me-5 border border-dark border-3">
         <div class="search-input-position mt-2">
-            <input class="form-control search-input" placeholder="Szukaj">
+            <input class="form-control search-input" placeholder="Szukaj" [(ngModel)]="phrase" (change)="searchForUser()">
         </div>
-        <button class="btn btn-dark receiver-details bg-secondary">
-            Asia Kozłowska
+        <button *ngFor="let user of users" class="btn btn-dark receiver-details" 
+            [ngClass]="{'bg-secondary': currentUser?.id == user?.id }" 
+            (click)="changeUser(user.id)"  >
+            {{ user.firstName + ' ' + user.lastName }}
         </button>
     </div>
     <div class="mess border border-dark border-3">
         <div class="sender-receiver mb-2 mt-2 border border-secondary border-3 m-3">
             <div class="sender-info">
-                OD: Jacek Wojciech
+                DO: {{ currentUser?.firstName + ' ' + currentUser?.lastName }}
             </div>
         </div>
         <div class="message-position mb-2 mt-2 border border-secondary border-3 m-3">
-            <div class="message-info bg-primary text-break">
-                WYSŁANO WIADOMOŚĆ
-            </div>
-            <div class="message-info-sender bg-primary text-break">
-                WYSŁANO WIADOMOŚĆ
-            </div>
-            <div class="message-info bg-primary text-break">
-                WYSŁANO WIADOMOŚĆ
-            </div>
+            <ng-container *ngFor="let message of messages">
+                <div *ngIf="(getTokenData$ | async)?.userId != message.senderId"  class="message-info bg-primary text-break">
+                    {{ message.text }}
+                </div>
+                <div *ngIf="(getTokenData$ | async)?.userId == message.senderId" class="message-info-sender bg-primary text-break">
+                    {{ message.text }}
+                </div>        
+            </ng-container>
         </div>
         <div>
             <textarea class="message" [(ngModel)]="textMessage"></textarea>

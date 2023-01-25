@@ -1,12 +1,12 @@
 type Mutation {
   createGroup(input: CreateGroupInput!): Group!
-  createMessage(input: CreateMessageInput!): Message!
   createUser(input: CreateUsersInput!): User!
   createSubject(input: CreateSubjectInput!): Subject!
   createRoom(input: CreateRoomInput!): Room!
   addStudentGrade(input: AddUserGradeInput!): User!
   addGroupSchedule(input: AddGroupScheduleInput!): Schedule!
   login(input: LoginInput!): LoginResponse!
+  sendMessage(input: CreateMessageInput!): Message!
 }
 
 type LoginResponse {
@@ -120,12 +120,6 @@ input CreateGroupInput {
   name: String!
 }
 
-input CreateMessageInput {
-  text: String!
-  sender_id: ID!
-  receiver_id: ID!
-}
-
 input CreateUsersInput {
   first_name: String!
   last_name: String!
@@ -161,6 +155,11 @@ input CreateRoomInput {
 input LoginInput {
   id: Int!
   password: String!
+}
+
+input CreateMessageInput {
+  text: String!
+  receiver_id: ID!
 }
 
 scalar DateTime

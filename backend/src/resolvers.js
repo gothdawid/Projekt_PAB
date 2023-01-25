@@ -165,15 +165,6 @@ const resolvers = {
         data: args,
       });
     },
-    createMessage: async (parent, args, { prisma }) => {
-      return prisma.message.create({
-        data: {
-          text: args.input.text,
-          Sender: { connect: { id: parseInt(args.input.sender_id) } },
-          Receiver: { connect: { id: parseInt(args.input.receiver_id) } },
-        },
-      });
-    },
     createSubject: async (parent, args, { prisma }) => {
       return prisma.subject.create({
         data: {
@@ -196,6 +187,20 @@ const resolvers = {
     createRoom: async (parent, args, { prisma }) => {
       return prisma.room.create({
         data: args.input,
+      });
+    },
+    sendMessage: async (
+      parent,
+      { input: { text, receiver_id } },
+      { prisma, headers }
+    ) => {
+      const user = await verifyToken(prisma, headers);
+      return prisma.message.create({
+        data: {
+          text,
+          sender_id: user.id,
+          receiver_id: parseInt(receiver_id),
+        },
       });
     },
   },

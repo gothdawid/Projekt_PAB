@@ -1,7 +1,7 @@
 import { gql } from "apollo-angular";
 
 export const LOGIN = gql`
-  mutation login($id: Int!, $password: String!) {
+  mutation login($receiver_id: ID!, $text: String!) {
     login(input: { id: $id, password: $password }) {
       token,
       user {
@@ -105,3 +105,31 @@ export const GET_MY_GRADES = gql`
     }
   }
 `;
+
+export const GET_ALL_MY_MESSAGES = gql`
+  query GetAllMyMessages {
+    getAllMyMessages {
+      id
+      receiver_id
+      sender_id
+      text
+      updatedAt
+      createdAt
+      Receiver {
+        first_name
+        group_id
+        id
+        isTeacher
+        last_name
+      }
+    }
+  }
+`
+
+export const SEND_MESSAGE = gql`
+  mutation SendMessage($receiver_id: ID!, $text: String!) {
+    sendMessage(input: { receiver_id: $receiver_id, text: $text }) {
+      id
+    }
+  }
+`

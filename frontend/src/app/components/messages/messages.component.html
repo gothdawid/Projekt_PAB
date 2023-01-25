@@ -25,9 +25,9 @@
             </div>
         </div>
         <div>
-            <textarea class="message"></textarea>
+            <textarea class="message" [(ngModel)]="textMessage"></textarea>
             <div class="me-4">
-                <button class="btn btn-info btn-position">Wyślij</button>
+                <button class="btn btn-info btn-position" (click)="sendMessage()" >Wyślij</button>
             </div>
         </div>
         <div class="mt-4"></div>

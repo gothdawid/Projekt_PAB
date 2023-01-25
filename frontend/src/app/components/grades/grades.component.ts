@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Grade } from 'src/app/models/Grade';
-import { Subject } from 'src/app/models/Subject';
 import { ApiService } from 'src/app/services/api.service';
 import * as graphOperations from '../../graphql-operations';
 

@@ -143,3 +143,28 @@ query AllUsers {
   }
 }
 `
+
+export const GET_MY_ACCOUNT = gql`
+query getMyAccount {
+  getMyAccount {
+    Group {
+      name
+      id
+    }
+    city
+    first_name
+    last_name
+    id
+    address,
+    avatar
+  }
+}
+`
+
+export const UPDATE_MY_ACCOUNT = gql`
+mutation Mutation($avatar: String!, $city: String!, $address: String!) {
+  updateMyAccount(input: { avatar: $avatar, city: $city, address: $address }) {
+    id
+  }
+}
+`

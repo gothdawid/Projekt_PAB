@@ -1,4 +1,9 @@
-<div>
+<ng-container *ngIf="loading">
+    <div class="center-loading-icon">
+        <app-loading-icon></app-loading-icon>
+    </div>
+</ng-container>
+<div *ngIf="!loading">
     <div class="mt-4 text-center">
         <h3>Indeks</h3>
     </div>

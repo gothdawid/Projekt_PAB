@@ -81,7 +81,6 @@ export class MessagesComponent implements OnInit {
      .subscribe({
       next: (_: any) => {
         this.textMessage = '';
-        debugger
         this.getAllMessages();
       },
       error: (err: any) => {

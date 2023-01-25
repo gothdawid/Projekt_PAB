@@ -1,4 +1,9 @@
-<div class="nav messages">
+<ng-container *ngIf="loading">
+    <div class="center-loading-icon">
+        <app-loading-icon></app-loading-icon>
+    </div>
+</ng-container>
+<div *ngIf="!loading" class="nav messages">
     <div class="received me-5 border border-dark border-3">
         <div class="search-input-position mt-2">
             <input class="form-control search-input" placeholder="Szukaj" [(ngModel)]="phrase" (change)="searchForUser()">

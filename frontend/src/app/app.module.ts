@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ApolloModule, APOLLO_NAMED_OPTIONS, NamedOptions } from 'apollo-angular'
-import { HttpClientModule, HttpHeaders } from '@angular/common/http'
+import { HttpClientModule, HttpHeaders, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { HttpLink } from 'apollo-angular/http'
 import { InMemoryCache } from '@apollo/client/core'
 
@@ -21,6 +21,7 @@ import { MessagesComponent } from './components/messages/messages.component';
 import { GradesComponent } from './components/grades/grades.component';
 import { TableComponent } from './components/table/table.component';
 import { TableRowDirective } from './components/table/table-row.directive';
+import { HttpAuthInterceptor } from './HttpAuthInterceptor';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { TableRowDirective } from './components/table/table-row.directive';
     StoreModule.forRoot({ 'login': loginReducer })
   ],
   providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true },
     {
       provide: APOLLO_NAMED_OPTIONS, // <-- Different from standard initialization
       useFactory(httpLink: HttpLink): NamedOptions {
@@ -66,17 +68,6 @@ import { TableRowDirective } from './components/table/table-row.directive';
 export class AppModule { }
 
 function createLink(httpLink: HttpLink) {
-  const jwtToken = localStorage.getItem('token'); 
-
-  if (jwtToken) {
-    const token = JSON.parse(jwtToken);
-    return httpLink.create({
-      // TODO: move to env file
-      uri: 'http://localhost:4000',
-      headers: new HttpHeaders().set('Authorization', `${token}`)
-    })
-  }
-
   return httpLink.create({
     // TODO: move to env file
     uri: 'http://localhost:4000'

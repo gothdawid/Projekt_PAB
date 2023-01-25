@@ -2,7 +2,7 @@
     display: grid;
     grid-template-columns: 0.2fr 0.5fr 0.2fr;
     align-content: center;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
     justify-items: center;
 }
@@ -29,5 +29,5 @@
 }
 
 .img-logo {
-    width: 15%;
+    width: 25%;
 }

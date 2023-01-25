@@ -130,6 +130,10 @@ const resolvers = {
         },
       });
     },
+    getMyAccount: async (parent, args, { prisma, headers }) => {
+      const user = await verifyToken(prisma, headers);
+      return prisma.user.findUnique({ where: { id: user.id } });
+    },
   },
 
   Mutation: {

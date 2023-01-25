@@ -118,7 +118,6 @@ export class TimetableComponent implements OnInit, OnDestroy {
       const schedulesPerDay: SchedulePerDay[] = schedulesGrouped[property]
           .sort((a,b) => (a.time > b.time) ? 1 : ((b.time > a.time) ? -1 : 0))
           .map(s => ({
-        id: s.id,
         time: this.getScheduleHour(s.time),
         subject: s.Subject.name,
         teacher: s.Subject.Teacher.first_name + " " + s.Subject.Teacher.last_name,

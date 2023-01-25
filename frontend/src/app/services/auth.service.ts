@@ -76,7 +76,6 @@ export class AuthService {
   public logout(): void {
     this.loginStore.dispatch(setTokenData({ tokenData: null }));
     localStorage.removeItem('token');
-    location.reload();
   }
 
   public isAuthenticated(): boolean {

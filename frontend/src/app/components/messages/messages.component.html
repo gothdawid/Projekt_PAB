@@ -17,12 +17,22 @@
         </div>
         <div class="message-position mb-2 mt-2 border border-secondary border-3 m-3">
             <ng-container *ngFor="let message of messages">
-                <div *ngIf="(getTokenData$ | async)?.userId != message.senderId"  class="message-info bg-primary text-break">
-                    {{ message.text }}
-                </div>
-                <div *ngIf="(getTokenData$ | async)?.userId == message.senderId" class="message-info-sender bg-primary text-break">
-                    {{ message.text }}
-                </div>        
+                <ng-container *ngIf="(getTokenData$ | async)?.userId != message.senderId">
+                    <div class="message-info bg-primary text-break">
+                        {{ message.text }}
+                    </div>
+                    <div class="receiver-hour">
+                        {{ message.createdAt | date:'short' }}
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="(getTokenData$ | async)?.userId == message.senderId">
+                    <div class="message-info-sender bg-primary text-break">
+                        {{ message.text }}
+                    </div>
+                    <div class="sender-hour">
+                        {{ message.createdAt | date:'short' }}
+                    </div>
+                </ng-container>
             </ng-container>
         </div>
         <div>

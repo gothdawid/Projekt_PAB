@@ -24,7 +24,6 @@ model User {
   Subjects   Subject[]
   Grades     Grade[]
   password   String
-  email      String
 }
 
 model Group {

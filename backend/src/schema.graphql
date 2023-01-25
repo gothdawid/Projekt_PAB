@@ -8,6 +8,7 @@ type Mutation {
   login(input: LoginInput!): LoginResponse!
   sendMessage(input: CreateMessageInput!): Message!
   deleteMessage(id: ID!): Boolean!
+  updateMyAccount(input: UpdateAccountInput!): User!
 }
 
 type LoginResponse {
@@ -162,6 +163,12 @@ input LoginInput {
 input CreateMessageInput {
   text: String!
   receiver_id: ID!
+}
+
+input UpdateAccountInput {
+  city: String
+  address: String
+  avatar: String
 }
 
 scalar DateTime

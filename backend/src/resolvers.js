@@ -236,6 +236,33 @@ const resolvers = {
       }
       return false;
     },
+    updateMyAccount: async (
+      parent,
+      { input: { city, address, avatar } },
+      { prisma, headers }
+    ) => {
+      const user = await verifyToken(prisma, headers);
+      // args can be null
+      if (city) {
+        await prisma.user.update({
+          where: { id: user.id },
+          data: { city },
+        });
+      }
+      if (address) {
+        await prisma.user.update({
+          where: { id: user.id },
+          data: { address },
+        });
+      }
+      if (avatar) {
+        await prisma.user.update({
+          where: { id: user.id },
+          data: { avatar },
+        });
+      }
+      return prisma.user.findUnique({ where: { id: user.id } });
+    },
   },
   User: {
     Group: async (parent, args, { prisma }) => {
